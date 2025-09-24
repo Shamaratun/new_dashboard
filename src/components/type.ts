@@ -1,8 +1,11 @@
-export interface Patient  {
+export interface Patient {
+  admission_id: number;
+  patient_id: number;
+  hospital_id: number;
+  hospital_name: string;
   patient_name: string;
   gender: string;
-  followup_date: Date | null;
-    admission_id: number;
-  patient_id: number;
- 
-};
+  age: number;
+  mobile_number: string;
+  address: string;
+}

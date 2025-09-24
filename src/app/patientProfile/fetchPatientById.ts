@@ -1,17 +1,6 @@
 "use server";
 
-type PatientProfileResponse = {
-  // Adjust this type based on your API response
-  patientId: number;
-  name: string;
-  age: number;
-  gender: string;
-  phone: string;
-  admissionDate: string;
-  hospital: string;
-};
-
-export async function getPatientProfile(patientId: number, admissionId: number): Promise<PatientProfileResponse> {
+export async function fetchPatientById(patient_id: number, admission_id: number ) {
   const res = await fetch(
     "https://sdms-api.onrender.com/api/v1/patientProfile/getProfile",
     {

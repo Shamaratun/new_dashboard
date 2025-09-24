@@ -1,17 +1,14 @@
 
-import PatientPage from "@/app/patientProfile/samplePatientData";
-import FollowupList from "@/components/FollowupList";
+import PatientProfileById from "./patientProfile/patientProfileById";
 
 export default function Home() {
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
         {/* <Header /> */}
-       {/* <FollowupList />  */}
-      
-       <PatientPage/>
-       
-
+       {/* <FollowupList />  */}      
+       {/* <PatientProfile/> */}
+       <PatientProfileById patient_id={35} admission_id={7}/>
       
       </main>
       

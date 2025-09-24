@@ -2,38 +2,47 @@
 
 import { useEffect, useState } from "react";
 import { getTodaysFollowups } from "./actions";
+import { Patient } from "./type";
+import Pagination from "./pagination";
+import PatientModal from "./patientModal";
+import { fetchPatients } from "@/app/patientProfile/fetchPatients";
 
-type Patient = {
-  patient_id: number;
-  patient_name: string;
-  age: number;
-  gender: string;
-  phone: string;
-  admissionDate: Date | null;
-  hospital: string;
-};
 
 export default function TodaysFollowupsPage() {
-  const [patients, setPatients] = useState<Patient[]>([]);
-  const [loading, setLoading] = useState(true);
+ const [patients, setPatients] = useState<Patient[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
+    const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
+  
 
-  useEffect(() => {
-    async function fetchData() {
-      const data = await getTodaysFollowups();
-      setPatients(data);
-      setLoading(false);
-    }
-    fetchData();
-  }, []);
-
+    useEffect(() => {
+      async function loadData() {
+                try {
+                 await fetchPatients().then((res) => {
+                    console.log(res)
+                    setPatients(res.data || []);
+                    setLoading(false);
+                  });
+                } catch (err) {
+                    console.error("Error:", err);
+                } finally {
+                    setLoading(false);
+                }
+            }
+            loadData();
+        }, []);
+    
+        if (loading)
+            return <p className="text-center text-gray-500" > Loading...</p>;
+    
+        if (!patients.length)
+            return <p className="text-center text-gray-500" > No patients found </p>;
+     const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = patients.slice(indexOfFirstItem, indexOfLastItem);
+    const totalPages = Math.ceil(patients.length / itemsPerPage);
   return (
-    <div className="p-4 sm:p-6 max-w-6xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Todays Followups</h1>
-      {loading ? (
-        <p>Loading...</p>
-      ) : patients.length === 0 ? (
-        <p>No follow-ups for today.</p>
-      ) : (
         <div className="overflow-x-auto">
           <table className="min-w-full border rounded-lg overflow-hidden">
             <thead className="bg-blue-100">
@@ -49,7 +58,7 @@ export default function TodaysFollowupsPage() {
             </thead>
             
               <tbody className="bg-white divide-y divide-gray-100">
-                {patients.map((p, i) => (
+                {currentItems.map((p, i) => (
                   <tr
                     key={i}
                     className="hover:bg-blue-50 transition-colors duration-200"
@@ -74,8 +83,19 @@ export default function TodaysFollowupsPage() {
               </tbody>
 
           </table>
-        </div>
-      )}
-    </div>
-  );
-}
+       <Pagination
+                      currentPage={currentPage}
+                      totalPages={totalPages}
+                      totalItems={patients.length}
+                      itemsPerPage={itemsPerPage}
+                      onPageChange={(page) => setCurrentPage(page)}
+                  />
+      
+                  {/*  Modal */}
+                  <PatientModal
+                      patient={selectedPatient}
+                      onClose={() => setSelectedPatient(null)}
+                  />
+              </div>
+          );
+      }

@@ -11,7 +11,6 @@ export default function AdmissionTable() {
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
-
     const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
 
     useEffect(() => {
