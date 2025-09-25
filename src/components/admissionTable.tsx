@@ -7,10 +7,11 @@ import Pagination from "./pagination";
 import PatientModal from "./patientModal";
 
 export default function AdmissionTable() {
+      const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
     const [patients, setPatients] = useState<Patient[]>([]);
     const [loading, setLoading] = useState(true);
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10;
+  
     const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
 
     useEffect(() => {
@@ -44,7 +45,7 @@ export default function AdmissionTable() {
 
     return (
         <div className="p-6" >
-            <h1 className="text-xl font-bold mb-4" > Patients With Admission </h1>
+            <h1 className="text-xl font-bold mb-4" >All Patients With Admission </h1>
 
             < table className="min-w-full border-collapse border border-gray-300 shadow-md rounded-lg overflow-hidden text-sm" >
                 <thead className="bg-amber-600 text-white" >

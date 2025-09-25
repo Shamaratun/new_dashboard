@@ -21,7 +21,16 @@ export default function PatientModal({ patient, onClose }: PatientModalProps) {
           <p><span className="font-semibold">Patient ID:</span> {patient.patient_id}</p>
           <p><span className="font-semibold">Name:</span> {patient.patient_name}</p>
           <p><span className="font-semibold">Gender:</span> {patient.gender}</p>
-?
+          <p><span className="font-semibold">Age:</span> {patient.age}</p>
+          <p><span className="font-semibold">Mobile:</span> {patient.mobile_number}</p>
+          <p><span className="font-semibold">Address:</span> {patient.address}</p>
+          <p><span className="font-semibold">Hospital:</span> {patient.hospital_name}</p>
+          <p><span className="font-semibold">Hospital ID:</span> {patient.hospital_id}</p>
+         {/* <p><span className="font-semibold">Marital Status:</span> {patient.marital_status}</p>
+           <p><span className="font-semibold">Admission Date:</span> {patient.date_of_adm}</p>
+          <p><span className="font-semibold">Discharge Date:</span> {patient.date_of_discharge || "N/A"}</p>
+          <p><span className="font-semibold">Status:</span> {patient.adm_status}</p>
+          <p><span className="font-semibold">Remarks:</span> {patient.remarks || "N/A"}</p> */}
         </div>
         <button
           onClick={onClose}

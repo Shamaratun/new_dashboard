@@ -5,7 +5,6 @@ import { getTodaysFollowups } from "./actions";
 import { Patient } from "./type";
 import Pagination from "./pagination";
 import PatientModal from "./patientModal";
-import { fetchPatients } from "@/app/patientProfile/fetchPatients";
 
 
 export default function TodaysFollowupsPage() {
@@ -19,7 +18,7 @@ export default function TodaysFollowupsPage() {
     useEffect(() => {
       async function loadData() {
                 try {
-                 await fetchPatients().then((res) => {
+                 await getTodaysFollowups().then((res) => {
                     console.log(res)
                     setPatients(res.data || []);
                     setLoading(false);

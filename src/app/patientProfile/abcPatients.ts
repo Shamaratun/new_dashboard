@@ -1,6 +1,8 @@
 "use server";
 
-export async function fetchPatientById(patient_id: number ) {
+
+
+export async function abcPatients (patient_id: number, admission_id: number) {
   const res = await fetch(
     "https://sdms-api.onrender.com/api/v1/patientProfile/getProfile",
     {
@@ -10,7 +12,8 @@ export async function fetchPatientById(patient_id: number ) {
       },
       body: JSON.stringify({
         action_mode: "get_profile",
-        patient_id: 35
+        patient_id: 35,
+        admission_id: 7
       }),
       cache: "no-store",
       });

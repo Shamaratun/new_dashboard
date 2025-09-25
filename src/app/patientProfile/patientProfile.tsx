@@ -1,103 +1,108 @@
-// "use client";
-// import { useState, useEffect } from "react";
-// import { useRouter } from "next/navigation";
-// import Link from "next/link";
-// import { Patient } from "@/components/type";
-// import { fetchPatients } from "./fetchPatients";
+"use client";
 
-// export default function PatientProfile() {
-//   const router = useRouter();
-
-//   const [patients, setPatients] = useState<Patient[]>([]);
-//   const [loading, setLoading] = useState(true);
- 
-
-//   const [selectedPatient ] = useState<Patient | null>(null);
-
-//   useEffect(() => {
-//     async function loadData() {
-//      try {
-//                   await fetchPatients().then((res) => {
-//                      console.log(res)
-//                      setPatients(res.data || []);
-//                      setLoading(false);
-//                    });
-//                  } catch (err) {
-//                      console.error("Error:", err);
-//                  } finally {
-//                      setLoading(false);
-//                  }
-//              }
-//              loadData();
-//          }, []);
-     
-//          if (loading)
-//              return <p className="text-center text-gray-500" > Loading...</p>;
-     
-//          if (!patients.length)
-//              return <p className="text-center text-gray-500" > No patients found </p>;
-     
-
-//   return (
-//     <div className = "p-6">
-     
-//       {
-//     selectedPatient && (
-//       <div className="mb-6 p-4 bg-white rounded-xl shadow max-w-5xl mx-auto">
-//         <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2">
-//           {selectedPatient.patient_name}
-//         </h1>
-//         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-4 mb-4 text-gray-700">
-//           <p><span className="font-semibold">ID:</span> {selectedPatient.patient_id}</p>
-//           <p><span className="font-semibold">Age:</span> {selectedPatient.age}</p>
-//           <p><span className="font-semibold">Gender:</span> {selectedPatient.gender}</p>
-//           <p><span className="font-semibold">Phone:</span> {selectedPatient.mobile_number}</p>
-//           <p><span className="font-semibold">Hospital:</span> {selectedPatient.hospital_name}</p>
-//         </div>
-
-//         <div className="flex flex-col sm:flex-row sm:space-x-3 space-y-2 sm:space-y-0 mb-4">
-//           <button onClick={() => router.push("/sharePatient")} className="bg-white text-blue-600 px-4 py-2 rounded-lg shadow hover:bg-blue-50 transition">
-//             Share
-//           </button>
-//           <button onClick={() => router.push("/export")} className="bg-white text-blue-600 px-4 py-2 rounded-lg shadow hover:bg-blue-50 transition">
-//             Export
-//           </button>
-//           <button onClick={() => router.push("/editPatient")} className="bg-white text-blue-600 px-4 py-2 rounded-lg shadow hover:bg-blue-50 transition">
-//             Edit
-//           </button>
-          
-//         </div>
-//       </div>
-//     )
-//   }
-//       <div className="flex flex-col sm:flex-row sm:space-x-3 space-y-2 sm:space-y-0 mb-4">
-//         <button onClick={() => router.push("/sharePatient")} className="bg-white text-blue-600 px-4 py-2 rounded-lg shadow hover:bg-blue-50 transition">
-//           Share
-//         </button>
-//         <button onClick={() => router.push("/export")} className="bg-white text-blue-600 px-4 py-2 rounded-lg shadow hover:bg-blue-50 transition">
-//           Export
-//         </button>
-//         <button onClick={() => router.push("/editPatient")}
-//           className="bg-white text-blue-600 px-4 py-2 rounded-lg shadow hover:bg-blue-50 transition"
-//         >          Edit
-//         </button>
-//         <Link href="/sharePatient"> link</Link>
-//       </div>
-
-    
-//         <div className="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0 border-b-2 border-gray-200 mb-4">
-//           <button onClick={() => router.push("/medicalHistory")} className="px-3 py-2 text-gray-950 bg-cyan-300 rounded-lg hover:bg-cyan-400 transition">
-//             Medical History
-//           </button>
-//           <button onClick={() => router.push("/export")} className="px-3 py-2 text-gray-950 bg-cyan-300 rounded-lg hover:bg-cyan-400 transition">
-//             Recent Visits
-//           </button>
-//           <button onClick={() => router.push("/export")} className="px-3 py-2 text-gray-950 bg-cyan-300 rounded-lg hover:bg-cyan-400 transition">
-//             Notes
-//           </button>
-//         </div>
+import { useEffect, useState } from "react";
+import { abcPatients } from "./abcPatients";
 
 
-//       </div >
-//   );
+// interface Admission {
+//   admission_data: {
+//     id: number;
+//     date_of_adm: string;
+//     adm_status: string;
+//     remarks: string;
+//     hospital_id: number;
+//   };
 // }
+interface Patientt {
+  id: number;
+  name: string;
+  age: number;
+  gender: string;
+  mobile_number: string;
+  marital_status: string;
+  religion: string;
+  address_line_one: string;
+}
+
+export default function PatientProfile() {
+  const [selectedPatient, setSelectedPatient] = useState<Patientt | null>(null);
+//   const [admissions, setAdmissions] = useState<Admission[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadData() {
+      try {
+         await abcPatients( 35, 7).then((res) => {
+
+        console.log(res)
+
+        if (res.data?.patient_basic) {
+          setSelectedPatient(res.data.patient_basic);
+        }
+
+        // if (res.data?.admissions) {
+        //   setAdmissions(res.data.admissions);
+        // }
+        setLoading(false);
+      });
+      } catch (err) {
+        console.error("Error:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadData();
+  }, []);
+
+  if (loading) return <p className="text-center text-gray-500">Loading...</p>;
+  if (!selectedPatient) return <p className="text-center text-gray-500">No patient found</p>;
+
+  return (
+    <div className="p-6 max-w-5xl mx-auto space-y-6">
+      <div className="bg-white shadow-lg rounded-xl p-6">
+        <h1 className="text-2xl font-bold mb-4">{selectedPatient.name}</h1>
+        <div className="grid grid-cols-2 gap-4 text-gray-700">
+             <p><span className="font-semibold">Patient ID:</span> {selectedPatient.id}</p>
+        
+          <p><span className="font-semibold">Age:</span> {selectedPatient.age}</p>
+          <p><span className="font-semibold">Gender:</span> {selectedPatient.gender}</p>
+          <p><span className="font-semibold">Mobile:</span> {selectedPatient.mobile_number}</p>
+          <p><span className="font-semibold">Marital Status:</span> {selectedPatient.marital_status}</p>
+          <p><span className="font-semibold">Religion:</span> {selectedPatient.religion}</p>
+          <p className="col-span-2"><span className="font-semibold">Address:</span> {selectedPatient.address_line_one}</p>
+        </div>
+      </div>
+       </div>
+  );
+}
+
+      {/* Admission History Table */}
+      {/* <div className="bg-white shadow-lg rounded-xl p-6 overflow-x-auto">
+        <h2 className="text-xl font-semibold mb-4">Admission History</h2>
+        {admissions.length === 0 ? (
+          <p className="text-gray-500">No admissions found</p>
+        ) : (
+          <table className="w-full border-collapse">
+            <thead>
+              <tr className="bg-gray-100 text-left">
+                <th className="p-2">Admission Date</th>
+                <th className="p-2">Status</th>
+                <th className="p-2">Remarks</th>
+                <th className="p-2">Hospital ID</th>
+              </tr>
+            </thead>
+            <tbody>
+              {admissions.map((adm, idx) => (
+                <tr key={idx} className="border-t hover:bg-gray-50">
+                  <td className="p-2">{adm.admission_data?.date_of_adm}</td>
+                  <td className="p-2">{adm.admission_data?.adm_status}</td>
+                  <td className="p-2">{adm.admission_data?.remarks}</td>
+                  <td className="p-2">{adm.admission_data?.hospital_id}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div> */}
+   
