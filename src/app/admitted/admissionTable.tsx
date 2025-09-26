@@ -2,26 +2,38 @@
 
 import { useEffect, useState } from "react";
 import { getPatientsWithAdmission } from "./getPatientWithAdmission";
-import { Patient } from "./type";
-import Pagination from "./pagination";
-import PatientModal from "./patientModal";
+import { Patient } from "../../components/type";
+import Pagination from "../../components/pagination";
+import PatientModal from "../../components/patientModal";
+import { useRouter } from "next/navigation";
 
 export default function AdmissionTable() {
-      const [currentPage, setCurrentPage] = useState(1);
+    <div className="p-6 max-w-3xl mx-auto">
+        {/* Back Button */}
+        <button
+            onClick={() => router.back()} // go back to the previous page
+            className="mb-4 px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 transition"
+        >
+            ← Back
+        </button>
+    </div>
+    const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
     const [patients, setPatients] = useState<Patient[]>([]);
     const [loading, setLoading] = useState(true);
-  
+
     const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
 
+
+    const router = useRouter();
     useEffect(() => {
         async function loadData() {
             try {
-             await getPatientsWithAdmission().then((res) => {
-                console.log(res)
-                setPatients(res.data || []);
-                setLoading(false);
-              });
+                await getPatientsWithAdmission().then((res) => {
+                    console.log(res)
+                    setPatients(res.data || []);
+                    setLoading(false);
+                });
             } catch (err) {
                 console.error("Error:", err);
             } finally {
@@ -51,15 +63,15 @@ export default function AdmissionTable() {
                 <thead className="bg-amber-600 text-white" >
                     <tr>
                         <th className="border px-4 py-2" > Admission ID </th>
-                        <th  className="border px-4 py-2" > Patient ID </th>
-                        <th  className="border px-4 py-2" > Hospital ID </th>
-                        <th  className="border px-4 py-2" > Hospital Name </th>
-                        <th  className="border px-4 py-2" > Patient Name </th>
-                        <th  className="border px-4 py-2" > Gender </th>
-                        <th  className="border px-4 py-2" > Age </th>
-                        <th  className="border px-4 py-2" > Mobile </th>
-                        <th  className="border px-4 py-2" > Address </th>
-                        <th  className="border px-4 py-2" > Action </th>
+                        <th className="border px-4 py-2" > Patient ID </th>
+                        <th className="border px-4 py-2" > Hospital ID </th>
+                        <th className="border px-4 py-2" > Hospital Name </th>
+                        <th className="border px-4 py-2" > Patient Name </th>
+                        <th className="border px-4 py-2" > Gender </th>
+                        <th className="border px-4 py-2" > Age </th>
+                        <th className="border px-4 py-2" > Mobile </th>
+                        <th className="border px-4 py-2" > Address </th>
+                        <th className="border px-4 py-2" > Action </th>
                     </tr>
                 </thead>
 
@@ -76,9 +88,9 @@ export default function AdmissionTable() {
                                 < td className="border px-4 py-2" > {p.age} </td>
                                 < td className="border px-4 py-2" > {p.mobile_number} </td>
                                 < td className="border px-4 py-2" > {p.address} </td>
-                                < td
+                                <td
                                     className="border px-4 py-2 text-blue-600 cursor-pointer font-bold"
-                                    onClick={() => setSelectedPatient(p)}
+                                    onClick={() => router.push("/patientProfileById")}
                                 >
                                     VIEW
                                 </td>
@@ -97,11 +109,7 @@ export default function AdmissionTable() {
                 onPageChange={(page) => setCurrentPage(page)}
             />
 
-            {/*  Modal */}
-            <PatientModal
-                patient={selectedPatient}
-                onClose={() => setSelectedPatient(null)}
-            />
+
         </div>
     );
 }
