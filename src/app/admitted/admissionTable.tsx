@@ -9,9 +9,8 @@ import { useRouter } from "next/navigation";
 
 export default function AdmissionTable() {
     <div className="p-6 max-w-3xl mx-auto">
-        {/* Back Button */}
         <button
-            onClick={() => router.back()} // go back to the previous page
+            onClick={() => router.back()} 
             className="mb-4 px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 transition"
         >
             ← Back
@@ -90,8 +89,7 @@ export default function AdmissionTable() {
                                 < td className="border px-4 py-2" > {p.address} </td>
                                 <td
                                     className="border px-4 py-2 text-blue-600 cursor-pointer font-bold"
-                                    onClick={() => router.push("/patientProfileById")}
-                                >
+                                   onClick={() => router.push(`/patientProfile/${p.patient_id}`)}>
                                     VIEW
                                 </td>
                             </tr>

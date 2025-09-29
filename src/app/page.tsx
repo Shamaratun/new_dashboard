@@ -13,7 +13,7 @@ export default function Home() {
         {/* <Header /> */}
         {/* <div><FollowupList /></div> */}
         
-        <div><PatientProfileById /></div>
+        {/* <div><PatientProfileById /></div> */}
         <div> <AdmissionTable /></div>
 
         {/* <div><NotReleasedTable /></div> */}

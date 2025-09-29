@@ -1,6 +1,6 @@
 "use server";
 
-export async function fetchPatientById(patient_id: number ) {
+export async function fetchPatientById(patient_id: number) {
   const res = await fetch(
     "https://sdms-api.onrender.com/api/v1/patientProfile/getProfile",
     {
@@ -10,13 +10,16 @@ export async function fetchPatientById(patient_id: number ) {
       },
       body: JSON.stringify({
         action_mode: "get_profile",
-        patient_id: 35
+        patient_id: patient_id
       }),
       cache: "no-store",
-      });
-  console.log(res.json)
-  if
-    (!res.status.toString().startsWith("2"))
-     { throw new Error("Failed to fetch data"); }
-  return res.json();
+    }
+  );
+
+ console.log(res.json)
+    if (!res.status.toString().startsWith("2")) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json(); 
 }
