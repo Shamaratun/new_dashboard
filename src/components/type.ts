@@ -54,9 +54,16 @@ interface PatientProfileData {
   admissions: AdmissionItem[];
 }
 
-// interface PatientProfileResponse {
-//   success: boolean;
-//   msg: string;
-//   data: PatientProfileData;
-// }
-
+export interface AdmittedPatient {
+  id: number;
+  name: string;
+  age: number;
+  gender: string;
+  mobile_number: string;
+  address: string;  
+  marital_status: string;
+  occupation: string;  
+  religion: string;
+  remarks: string;
+  
+}

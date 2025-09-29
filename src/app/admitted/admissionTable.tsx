@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { getPatientsWithAdmission } from "./getPatientWithAdmission";
 import { Patient } from "../../components/type";
 import Pagination from "../../components/pagination";
-import PatientModal from "../../components/patientModal";
 import { useRouter } from "next/navigation";
 
 export default function AdmissionTable() {
