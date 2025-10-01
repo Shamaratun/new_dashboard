@@ -37,6 +37,10 @@ export function SelectScrollable({ control, name, label, placeholder }: BaseFiel
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
+                                <SelectLabel>none</SelectLabel>
+                                <SelectItem value="gmt">none</SelectItem>
+                                 </SelectGroup>
+                            <SelectGroup>
                                 <SelectLabel >Neuro Surgeon</SelectLabel>
                                 <SelectItem value="est">surgeon1</SelectItem>
                                 <SelectItem value="cst">surgeon2</SelectItem>
