@@ -38,32 +38,32 @@ export function SelectScrollable({ control, name, label, placeholder }: BaseFiel
                         <SelectContent>
                             <SelectGroup>
                                 <SelectLabel>none</SelectLabel>
-                                <SelectItem value="gmt">none</SelectItem>
-                                 </SelectGroup>
+                                <SelectItem value="1">none</SelectItem>
+                            </SelectGroup>
                             <SelectGroup>
                                 <SelectLabel >Neuro Surgeon</SelectLabel>
-                                <SelectItem value="est">surgeon1</SelectItem>
-                                <SelectItem value="cst">surgeon2</SelectItem>
-                                <SelectItem value="mst">surgeon3</SelectItem>
-                                <SelectItem value="pst">surgeon4</SelectItem>
-                                <SelectItem value="akst">surgeon5</SelectItem>
-                                <SelectItem value="hst">surgeon6</SelectItem>
+                                <SelectItem value="2">surgeon1</SelectItem>
+                                <SelectItem value="3">surgeon2</SelectItem>
+                                <SelectItem value="4">surgeon3</SelectItem>
+                                <SelectItem value="5">surgeon4</SelectItem>
+                                <SelectItem value="6">surgeon5</SelectItem>
+                                <SelectItem value="7">surgeon6</SelectItem>
 
                             </SelectGroup>
                             <SelectGroup>
                                 <SelectLabel>Padiatric Surgeon</SelectLabel>
-                                <SelectItem value="gmt">surgeon7</SelectItem>
-                                <SelectItem value="cet">surgeon8</SelectItem>
-                                <SelectItem value="eet">surgeon9</SelectItem>
+                                <SelectItem value="8">surgeon7</SelectItem>
+                                <SelectItem value="9">surgeon8</SelectItem>
+                                <SelectItem value="10">surgeon9</SelectItem>
 
                             </SelectGroup>
                             <SelectGroup>
                                 <SelectLabel>Medicine</SelectLabel>
-                                <SelectItem value="msk">Medicine1</SelectItem>
-                                <SelectItem value="ist">Medicine2</SelectItem>
-                                <SelectItem value="cst_china">Medicine3</SelectItem>
-                                <SelectItem value="jst">Medicine4</SelectItem>
-                                <SelectItem value="kst">Medicine5</SelectItem>
+                                <SelectItem value="11">Medicine1</SelectItem>
+                                <SelectItem value="12">Medicine2</SelectItem>
+                                <SelectItem value="13">Medicine3</SelectItem>
+                                <SelectItem value="14">Medicine4</SelectItem>
+                                <SelectItem value="15">Medicine5</SelectItem>
                             </SelectGroup>
                         </SelectContent>
                     </Select>

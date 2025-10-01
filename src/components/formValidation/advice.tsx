@@ -7,6 +7,7 @@ import DischargeDate from "./dischargeDate";
 import FollowupForm from "./followUpForm";
 
 
+
 const FormSchema = z.object({
     advice: z.string().min(1, "Advice is required"),
     fu_procedure: z.string().optional(),
